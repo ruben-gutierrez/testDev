@@ -10,7 +10,8 @@
         </div>
  @endif
  <div class="container">
-    <h3>Asignar actividad a {{$name}}</h3>
+    <h3>Asignar actividad a {{$name}} </h3>
+    <h5>Salario hasta el momento {{ $money }}</h5>
      <div class="row">
          
          <div class="col">

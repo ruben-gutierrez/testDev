@@ -27,26 +27,31 @@ class PagesController extends Controller
                 $users[$key]= App\Activity::where('nameUser', $key)->where('created_at', '>',date("Y-m-d 00:00:00"))->sum('cost');
         }
         foreach ($users as $key => $value) {
-            if( min($users) == $value){
+            $money = min($users);
+            if( $money == $value){
+                
                 array_push($userReturn, $key);
             }
-        }       
+        } 
+        
         if (count($userReturn) >= 2) {
-            dd($userReturn);
-
-            $userReturn = array_rand($userReturn, 1);
+            $index= array_rand($userReturn, 1);
+            $name=$userReturn[$index];
+            // dd($name);
+        }else{
+            $name=$userReturn[0];  
         }
        
-        $name=$userReturn[0];
-        return view('work', compact('name'));
+        
+        return view('work', compact(['name', 'money']));
     }
     public function inform( string $name = 'general')
     {
         if ($name === 'general') {
-            $activity = App\Activity::all();
-            
+        //    return  $activity = App\Activity::with(['id', 'name', 'cost', 'created_at'])->paginate(10);
+             $activity = App\Activity::paginate(10);
         }else{
-            $activity = App\Activity::where('nameUser', $name)->get();
+            $activity = App\Activity::where('nameUser', $name)->paginate(10);
         }
         return view('inform', compact(['name', 'activity']));
     }

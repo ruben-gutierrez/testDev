@@ -29,6 +29,11 @@
      
     </tbody>
   </table>
+  <div class=" justify-content center">
+          {{ $activity->links() }}
+      
+  </div>
+
 
 
 @stop
